@@ -1,0 +1,69 @@
+<!doctype html>
+<html>
+<head>
+<title>转盘h5</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+<meta charset="telephone=no;" name="format-detection" />
+<meta charset="address=no;" name="format-detection" />
+<meta charset="email=no" name="format-detection" />
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta http-equiv="x-dns-prefetch-control" content="on" />
+<link rel="shortcut icon" href="http://www.51fanli.com/favicon.ico" />
+<link rel="apple-touch-icon" href="http://www.51fanli.com/apple-touch-icon.png" />
+<link rel="apple-touch-icon-precomposed" size="114x114" href="http://static2.51fanli.net/common/images/webapp/dockicon.png" />
+<style>
+.zp,.zp-arrow { position:absolute; left:50%; top:50%; width:277px; height:277px; margin:-138px 0 0 -138px; background:url(images/h5/dial.alpha.png) no-repeat; background-size:277px 277px;}
+.zp-arrow { width:79px; height:128px; margin:-90px 0 0 -40px; background:url(images/h5/arrow.alpha.png) no-repeat; background-size:79px 128px;}
+</style>
+</head>
+<body>
+
+<section class="J_zp_full_panel zp-panel">
+	<div id="J_zp_ctg6" class="zp-lottery-area">
+		<div class="zp-box">
+			<div class="zp" id="J_zp_panel"></div>
+			<a class="zp-arrow" id="J_zp_trigger" href="javascript:void(0);" ></a>
+		</div>
+	</div>
+</section>
+
+<include file="pop"/>
+
+<script src="http://static2.51fanli.net/common/libs/headjs/head.load.min.js"></script>
+<script>
+	setTimeout(function ()
+	{
+		head.load(["http://static2.51fanli.net/common/libs/gmu/zepto.min.js", "http://static2.51fanli.net/common/plugins/rotate/zepto.rotate.min.js"], function ()
+		{
+			var isRunning = false;
+			var prizeArr = [-30, -90, -150, -210, -270, -330, 0];
+			var $panel = $("#J_zp_panel");
+			var $zpTrigger = $("#J_zp_trigger");
+
+			$zpTrigger.on("click", function (ev)
+			{
+				ev.preventDefault();
+
+				if (!isRunning)
+				{
+					isRunning = true;
+
+					$panel.rotate({
+						duration: 3000,
+						angle: $panel.getRotateAngle()[0] ? $panel.getRotateAngle()[0] % 360 : 0,
+						animateTo: 360 * 5 + prizeArr[1 || 6],
+						callback: function ()
+						{
+							alert('恭喜你中奖了。');
+							isRunning = false;
+						}
+					});
+				}
+				
+			});
+		});
+	}, 10);
+</script>
+</body>
+</html>

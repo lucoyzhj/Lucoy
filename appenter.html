@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=320,maximum-scale=2.3,user-scalable=no,minimal-ui"><meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="format-detection" content="telephone=no">
+	<meta name="format-detection" content="address=no">
+	<meta name="format-detection" content="email=no">
+	<meta http-equiv="x-dns-prefetch-control" content="on">
+	<link rel="dns-prefetch" href="//l0.51fanli.net">
+	<link rel="dns-prefetch" href="//l1.51fanli.net">
+	<link rel="dns-prefetch" href="//l2.51fanli.net">
+	<link rel="dns-prefetch" href="//l3.51fanli.net">
+	<link rel="dns-prefetch" href="//l4.51fanli.net">
+	<link rel="dns-prefetch" href="//static2.51fanli.net">
+	<link rel="shortcut icon" href="http://www.budou.com/favicon.ico">
+	<link rel="apple-touch-icon-precomposed" size="114x114" href="http://www.budou.com/apple-touch-icon-precomposed.png">
+
+	<title>入口</title>
+	<link rel="stylesheet" href="style.css">
+
+	<script src="http://static2.51fanli.net/common/libs/fmu/js/vendors/jquery/jquery.min.js"></script>
+</head>
+<body>
+
+<h1>入口</h1>
+
+<h2>Fanli APP</h2>
+	
+	<ol>
+		<li><a href="ifanli://m.51fanli.com/app/show/native">用APP打开原生首页</a></li>
+	</ol>
+
+	<script>
+	var href1 = 'http://m.fanli.com/budou/index?cate_id=27&spm=bd_outsource_deal_0305.10.3.990520990101';
+    var href2 = 'http://m.fanli.com/budou/activity/alias/lmhd?spm=fanli';
+    var href2 = 'http://m.fanli.com/budou/limit';
+	var href3 = 'http://detail.m.tmall.com/item.htm?id=520020702003';
+
+	document.write('<a href="ifanli://m.51fanli.com/app/show/web?url='+encodeURIComponent(href1)+'&wb=3&nologin=1" class="fui-span1">fanliAPP 打开 '+href1+'</a>');
+	document.write('<br><br>');
+    document.write('<a href="'+href2+'" class="fui-span1"> 浏览器打开 '+href2+'</a>');
+    document.write('<br><br>');
+	document.write('<a href="ifanli://m.51fanli.com/app/show/web?url='+encodeURIComponent(href2)+'&nologin=1" class="fui-span1">fanliAPP 打开 '+href2+'</a>');
+    document.write('<br><br>');
+    document.write('<br><br>如果安装了fanliapp,就用app打开');
+    document.write('http://m.fanli.com/loading?go='+encodeURIComponent('ifanli://m.51fanli.com/app/show/web?url='+encodeURIComponent(href3)+'&nologin=1')+'&du='+encodeURIComponent(href3));
+    document.write('<a href="http://m.fanli.com/loading?go='+encodeURIComponent('ifanli://m.51fanli.com/app/show/web?url='+encodeURIComponent(href3)+'&nologin=1')+'&du='+encodeURIComponent(href3)+'" class="fui-span1">fanliAPP 打开 '+href3+'</a>');
+    document.write('<br /><a href="ifanli://m.51fanli.com/app/bc/showItemDetail?itemId=AAHHL9Y-AB9UhX0T_YDoylrR&itemType=2">sdfsdfsdfsdfsdf1111111</a>');
+    document.write('<br /><a href="ifanli://m.51fanli.com/app/bc/showItemDetail?itemId=AAEbL9Y-AB9UhX0T_YMMvEoc&itemType=2">AAH2L9Y-AB9UhX0T_fC4ld9w</a>');
+	</script>	
+
+		
+<br><br>
+<h2>Budou APP</h2>
+
+	<script>
+	var href1 = 'http://m.budou.com/Activity/index/alias/pgc1';
+	var href2 = 'http://m.budou.com/limit';
+
+	document.write('<a href="budou://m.api.budou.com/jump?url='+encodeURIComponent(href1)+'&nav=1&noshare=0&display=0" class="fui-span1" target="_blank">用budouAPP打开:'+href1+'</a>');
+	document.write('<br><br>');
+    document.write('<a href="budou://m.api.budou.com/jump?url='+encodeURIComponent(href2)+'&nav=2&noshare=0&display=0" class="fui-span1" target="_blank">用budouAPP打开:'+href2+'</a>');
+	document.write('budou://m.api.budou.com/jump?url='+encodeURIComponent(href2)+'&nav=2&noshare=0&display=0');
+	</script>
+
+	<br><br>
+	<a href="http://www.budou.com/Index/appDownload">下载budoumm app</a>
+	<br><br>
+	<a href="budou://m.api.budou.com/app/show/native">用布兜app打开淘宝</a>
+
+    <br><br>
+    <a href="http://m.budou.com/Activity/index/alias/mamacarouselads">http://m.budou.com/Activity/index/alias/mamacarouselads</a>
+
+	<br><br>	
+<h2>Fanli APP中用浏览器打开网址（安卓）</h2>
+
+<a href="ifanli://m.51fanli.com/app/action/openbrowser?url=http%3A%2F%2Fwww.budou.com%2FIndex%2FappDownload%3Fspm%3Dbd_download_outsource_detail_0305.X.A.S">test</a>
+
+</body>
+</html>
