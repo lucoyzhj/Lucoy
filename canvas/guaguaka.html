@@ -1,0 +1,126 @@
+<!doctype html>
+<html>
+<head>
+<title>刮刮卡</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+<meta charset="telephone=no;" name="format-detection" />
+<meta charset="address=no;" name="format-detection" />
+<meta charset="email=no" name="format-detection" />
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta http-equiv="x-dns-prefetch-control" content="on" />
+<link rel="shortcut icon" href="http://www.51fanli.com/favicon.ico" />
+<link rel="apple-touch-icon" href="http://www.51fanli.com/apple-touch-icon.png" />
+<link rel="apple-touch-icon-precomposed" size="114x114" href="http://static2.51fanli.net/common/images/webapp/dockicon.png" />
+<script src="http://static2.51fanli.net/common/libs/fmu/js/vendors/jquery/jquery.min.js"></script>
+<style>
+.wrap {
+    width: 254px;
+    height: 104px;
+    background: url('bac.jpg') 0 0 no-repeat;
+}
+/*考虑到高清屏, 所以图片等都用两倍大小的, 再用css进行压缩50%*/
+canvas{-webkit-transform:scale(0.5); transform:scale(0.5); -webkit-transform-origin:left top; transform-origin:left top;}
+</style>
+</head>
+<body>
+<div id="con" class="wrap">
+    <canvas id="myCanvas" width="508" height="208"></canvas>
+</div>
+
+<script>
+var canvas = document.getElementById('myCanvas');
+var context = canvas.getContext('2d');
+
+var isFingerOn = false;
+var isFingerFirst = true;
+var w = 254*2;
+var h = 104*2;
+var content = "";
+
+bindDrawState(function(){
+    context.font = "bold 36px Microsoft YaHei";
+    context.fillText("还没有奖励哦！", 66*2, 90*2);
+    var iconImage = new Image();
+    iconImage.src = "./no-award-icon.png";
+    iconImage.onload = function() {
+        context.drawImage(iconImage, 102*2, 10*2, 50*2, 50*2);
+    }
+});
+
+canvas.addEventListener('touchstart', touchStart , false);
+canvas.addEventListener('touchmove', touchMove , false);
+canvas.addEventListener('touchend', touchEnd, false);
+
+function bindDrawState(cb) {
+    context.beginPath();
+    context.font = "bold 48px/60px Microsoft YaHei";
+    context.fillStyle = "#777";
+    var image = new Image();
+    image.crossOrigin = "Anonymous";
+    image.src = "./canvas-bg.jpg";
+    image.onload = function() {
+        context.drawImage(image, 0, 0, w, h);
+        cb();
+    }
+    context.closePath();
+}
+
+function touchStart(event) {
+    event.preventDefault();
+    var touch = event.touches[0];
+    isFingerOn = true;
+}
+
+function touchMove(event) {
+    event.preventDefault();
+    var touch = event.touches[0];
+    var canvasPosition = $(canvas).offset();
+    var canvasLeft = canvasPosition.left;
+    var canvasTop = canvasPosition.top;
+    var startX = (touch.pageX - canvasLeft)*2;
+    var startY = (touch.pageY - canvasTop)*2;
+
+    if (isFingerOn) {
+        drawArc(startX, startY, 20*2);
+    }
+}
+
+function touchEnd(event) {
+    event.preventDefault();
+    var touch = event.touches[0];
+    var num = 0;
+    var data = context.getImageData(0, 0, w, h);
+    
+    isFingerOn = false;
+
+    for (var i = 0; i < data.data.length; i++) {
+        if (data.data[i] == 0) {
+            num++;
+        };
+    };
+    if (num >= data.data.length * 0.6) {
+        context.fillRect(0, 0, w, h);
+        alert('dialogload');
+    };
+}
+
+function drawArc(x, y, r) {
+    context.globalCompositeOperation ="destination-out";
+    context.beginPath();
+    context.arc(x, y, r, 0, Math.PI * 2);
+    canvas.style.display = "none";
+    canvas.offsetHeight;
+    canvas.style.display = "inherit";
+    context.fillStyle = "#000";
+    context.fill();
+    context.closePath();
+}
+
+function cb(){
+    alert('imageload')
+}
+</script>
+
+</body>
+</html>
