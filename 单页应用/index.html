@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>SPA Tpl - Index</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <link rel="shortcut icon" href="http://www.fanli.com/favicon.ico">
+    <link rel="stylesheet" href="http://static2.51fanli.net/webapp/css/base.css">
+    <link rel="stylesheet" href="css/page.css">
+</head>
+<!--
+    1. 单文件时间戳 -> PHP时间戳 - resolved 
+    2. js压缩 -> PHP minify - resolved
+    3. ajax load内容 - resolved
+    4. route - resloved
+    5. 转场动画 - resolved
+    6. 前一个view滚动条位置保留  - TBD
+    7. 缓存加载过的view - resolved 
+        7.1 增加强制更新开关 -> 调用时update - resolved
+    8. 数据收集pv, click, scroll - 配合UBT
+-->
+
+<body style="background-color: #EAEAEA">
+    <div class="view" id="J_view"><i> loading... </i></div>
+    <script src="js/sea.js"></script>
+    <script>
+    seajs.config({
+        alias: {
+            'underscore': 'underscore',
+            'jquery': 'jquery',
+            'backbone': 'backbone'
+        },
+        paths: {
+            // 'root': 'http://10.200.15.137:8888/'
+            'root': './js/'  //必须要用绝对路径
+        },
+        map: [
+            [/^(.*\.(?:css|js))(?:.*)$/i, '$1?20110802']
+        ],
+        debug: true
+    });
+
+    seajs.use('app', function(app) {
+        app.run();
+    });
+    </script>
+</body>
+
+</html>
