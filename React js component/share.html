@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv='Content-type' content='text/html; charset=utf-8'>
+    <title><%= title %></title>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+
+    <link rel="stylesheet" href="/examples/shared/css/base.css" />
+  </head>
+  <body>
+
+
+<div id="share" ></div>
+
+    <script src="/build/react.js"></script>
+    <script src="/build/react-dom.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.24/browser.min.js"></script>
+
+    <script type="text/babel">
+
+        var ShareComp = React.createClass({
+            getInitialState: function(){
+                return {
+                    clicked: false
+                }
+            },
+            shareHandler: function(){
+                this.setState({
+                    clicked: true
+                })
+            },
+            render: function () {
+                var clicked = this.state.clicked;
+
+                if( clicked ){ 
+                    return (
+                        <button 
+                            className="J_wechat_share_btn sharebtn" disabled="disabled"
+                            // onClick={this.shareHandler}   //注意这里要用大括号
+                            onClick={this.props.clickCallback}   //注意这里要用大括号
+                        >
+                            分享
+                        </button>
+                    );    
+                } else {
+                    return (
+                        <button 
+                            className="J_wechat_share_btn sharebtn" style={{marginTop: 100+'px'}}
+                            href="javascript:void(0);" 
+                            // onClick={this.shareHandler}   //注意这里要用大括号
+                            onClick={this.props.clickCallback}   //注意这里要用大括号
+                        >
+                            分享
+                        </button>
+                    );
+                }
+                
+            }
+        });
+
+        var ParentShareComp = React.createClass({
+            getShareCompClickCallback: function(){
+                this.refs.getShareComp.shareHandler();
+            },
+            render: function(){
+                //通过this.refs.getShareComp.shareHandler 调用子组件的接口方法
+                return (
+                    <div>
+                        <ShareComp ref="getShareComp" clickCallback={this.getShareCompClickCallback} />  
+
+                    </div>
+                );
+            }
+        });
+
+        ReactDOM.render(<ParentShareComp />, document.getElementById('share'));
+      
+    </script>
+  </body>
+</html>

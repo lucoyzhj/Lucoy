@@ -1,0 +1,104 @@
+<!doctype html>
+<html>
+<head>
+    <title>返利分享v0.1</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+
+    <link rel="stylesheet" href="//static2.51fanli.net/webapp/css/base.css">
+    <link rel="stylesheet" href="//static2.51fanli.net/common/libs/fmu/css/dialog.css">
+
+</head>
+<body>
+<!-- header -->
+
+<?php
+    $nativeWxsession = $nativeWxtimeline = array(
+        'cd' => '', //如果没有要求, 可以不加
+        'title' => '新年能不能发财，就在这一拜了~',
+        'content' => '新年财运有多旺，拜拜财神爷就知道！',
+        'url' => '',
+        'img' => 'https://cdn.tinypng.com/images/jpg/panda-png-happy.png', //一定要加上http协议, 否则不会当成图片处理
+        "spm" => '',
+    );
+    $nativeWxsession['target'] = 'wx_session';
+    $nativeWxtimeline['target'] = 'wx_timeline';
+?>
+
+<script>
+function jsLoadCallback () {
+
+    if( wagv.isFromFanli ) {
+        Fanli.Webapp.WeXin.share();
+        $('.J_btn_div').show();
+    } else if ( wagv.isFromWeixin ) {
+        $('.J_wechat_share_btn').click(function(){
+            Fanli.Utility.TopOverlay.open({
+                image: {
+                    ios: "//static2.51fanli.net/webapp/images/share/mask-ios-v2.alpha.png",
+                    android: "//static2.51fanli.net/webapp/images/share/mask-android-v2.alpha.png"
+                }
+            });
+        });
+        $('.J_btn_div').show();
+    }
+}
+</script>
+
+<a class="J_wechat_share_btn sharebtn"href="javascript:void(0);" 
+    data-wxsession='{:json_encode($nativeWxsession)}' 
+    data-wxtimeline='{:json_encode($nativeWxtimeline)}'
+>分享</a>
+
+<?php
+
+    $useJquery = true;
+    $showDownloadAPPDialog = 1;
+    $pageJsList = array(
+        '//static2.51fanli.net/static?f=common/js/fanli/debug/fanli.stacktrace.js,webapp/js/base.js,common/js/fanli/trace/ubt.js,webapp/js/analytics.js,common/libs/fmu/js/core/fmu.js,common/libs/fmu/js/core/widget.js',
+        '//static2.51fanli.net/static?f=common/libs/fmu/js/widget/dialog.js,webapp/js/common/hybridapi/nativefunction.js,webapp/js/common/weixin/share.js,webapp/js/common/topoverlay.js'
+    );
+
+
+    $wxShareTimeline = $wxShareSession = array(
+        'title' => $nativeWxsession['title'],
+        'desc' => $nativeWxsession['content'],
+        'url' => $nativeWxsession['url'],
+        'img' => $nativeWxsession['img'],
+    );
+?>
+
+<include file="Public:wx" />
+
+<!-- footer -->
+<script src="//static2.51fanli.net/common/libs/headjs/head.load.min.js"></script>
+<script>
+(function() {
+
+    wagv.pageJsListArr.push(<?php echo !empty($useJquery) ? '"//static2.51fanli.net/common/libs/fmu/js/vendors/jquery/jquery.min.js"' : '"//static2.51fanli.net/common/libs/gmu/zepto.min.js"'; ?>);
+
+    <volist name="pageJsList" id="vo">
+        <notempty name="vo">
+        wagv.pageJsListArr.push("{$vo}<?php echo strpos($vo, "?") ? "&" : "?"; ?>{$Think.config.CSS_JS_TIME}");
+        </notempty>
+    </volist>
+
+    <?php if($showDownloadAPPDialog == 1) { ?>  
+    if (wagv.isFromWeixin) {
+       wagv.pageJsListArr.push("//static2.51fanli.net/static/?f=webapp/js/huodong/downloadapp.js&{$Think.config.CSS_JS_TIME}"); 
+    }
+    <?php } ?>
+      
+    if(typeof(jsLoadCallback) == "function"){
+        wagv.pageJsLoadedCallbackArr.push(jsLoadCallback);
+    }
+    
+    setTimeout(function(){head.load(wagv.pageJsListArr, function() {
+        for(var i = 0, len = wagv.pageJsLoadedCallbackArr.length; i < len; ++i) {
+            wagv.pageJsLoadedCallbackArr[i]();
+        }
+    });}, 10);
+}());
+</script>
+</body>
+</html>
